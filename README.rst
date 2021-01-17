@@ -4,11 +4,14 @@ flats
 
 Python library for common functionalities related to flattening nested instances of container types.
 
-|pypi|
+|pypi| |travis|
 
 .. |pypi| image:: https://badge.fury.io/py/flats.svg
    :target: https://badge.fury.io/py/flats
    :alt: PyPI version and link.
+
+.. |travis| image:: https://travis-ci.com/lapets/flats.svg?branch=master
+    :target: https://travis-ci.com/lapets/flats
 
 Package Installation and Usage
 ------------------------------
