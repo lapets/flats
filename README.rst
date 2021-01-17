@@ -2,7 +2,7 @@
 flats
 =====
 
-Python library for common functionalities related to flattening nested values of container types.
+Python library for common functionalities related to flattening nested instances of container types.
 
 .. image:: https://badge.fury.io/py/flats.svg
    :target: https://badge.fury.io/py/flats
@@ -19,10 +19,22 @@ The library can be imported in the usual ways::
     import flats
     from flats import flats
 
-Examples
---------
-Examples of usage are provided  below::
+A usage example is provided  below::
 
     >>> from flats import flats
     >>> list(flats([[1, [2, 3]], [4, 5, 6, 7]]))
     [1, 2, 3, 4, 5, 6, 7]
+
+Testing and Conventions
+-----------------------
+All unit tests are executed when using `nose <https://nose.readthedocs.io/>`_ (see ``setup.cfg`` for configution details)::
+
+    nosetests
+
+Alternatively, all unit tests are included in the module itself and can be executed using `doctest <https://docs.python.org/3/library/doctest.html>`_::
+
+    python flats/flats.py -v
+
+Style conventions are enforced using `Pylint <https://www.pylint.org/>`_::
+
+    pylint flats

@@ -17,10 +17,10 @@ def _is_container(instance):
     try:
         _ = instance[0]
         return True
-    except:
+    except: # pylint: disable=W0702
         return False
 
-def flats(xss, depth=1):
+def flats(xss, depth=1): # pylint: disable=R0912
     """
     Flatten an instance that consists of nested values
     of a container type.
