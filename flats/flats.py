@@ -4,13 +4,21 @@ Python library for common functionalities related to flattening
 nested instances of container types.
 """
 from types import GeneratorType
+from collections.abc import Iterable
 import doctest
 
 def _is_container(instance):
-    return isinstance(instance, (
-        tuple, list, set, frozenset,
-        GeneratorType
-    ))
+    if isinstance(instance, (
+            tuple, list, set, frozenset,
+            Iterable, GeneratorType
+        )):
+        return True
+
+    try:
+        _ = instance[0]
+        return True
+    except:
+        return False
 
 def flats(xss, depth=1):
     """
@@ -21,6 +29,16 @@ def flats(xss, depth=1):
     [1, 2, 3, 4, 5, 6, 7]
     >>> list(flats([(1,2,3), (4,5,6,7)]))
     [1, 2, 3, 4, 5, 6, 7]
+    >>> tuple(flats([{1}, {2}, {3}, frozenset({4}), iter([5,6,7])]))
+    (1, 2, 3, 4, 5, 6, 7)
+    >>> list(flats(['abc', 'xyz']))
+    ['a', 'b', 'c', 'x', 'y', 'z']
+    >>> list(flats([range(3), range(3)]))
+    [0, 1, 2, 0, 1, 2]
+    >>> list(flats([bytes([0, 1, 2]), bytes([3, 4, 5])]))
+    [0, 1, 2, 3, 4, 5]
+    >>> list(flats([bytearray([0, 1, 2]), bytearray([3, 4, 5])]))
+    [0, 1, 2, 3, 4, 5]
     >>> list(flats([[[1,2],3],[4,5,6,7]], depth=2))
     [1, 2, 3, 4, 5, 6, 7]
     >>> list(flats([[[1,2],[3]],[[4,5],[6,7]]], depth=2))
@@ -31,6 +49,12 @@ def flats(xss, depth=1):
     [[[1, 2], 3], [4, 5, 6, 7]]
     >>> list(flats([[[1,[2]],3],[4,[[[5]]],6,7]], depth=float('inf')))
     [1, 2, 3, 4, 5, 6, 7]
+    >>> class wrap():
+    ...     def __init__(self, xs): self.xs = xs
+    ...     def __getitem__(self, key): return self.xs[key]
+    ...     def __repr__(self): return 'wrap(' + str(self.xs) + ')'
+    >>> wrap(list(flats(wrap([wrap([1, 2]), wrap([3, 4])]))))
+    wrap([1, 2, 3, 4])
     """
     if depth == 1: # Most common case is first for efficiency.
         for xs in xss:
@@ -63,5 +87,5 @@ def flats(xss, depth=1):
             else:
                 raise ValueError('depth value is invalid')
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     doctest.testmod()
