@@ -55,6 +55,16 @@ def flats(xss, depth=1): # pylint: disable=R0912
     ...     def __repr__(self): return 'wrap(' + str(self.xs) + ')'
     >>> wrap(list(flats(wrap([wrap([1, 2]), wrap([3, 4])]))))
     wrap([1, 2, 3, 4])
+    >>> list(flats([(1,2,3), (4,5,6,7)], depth=3))
+    [1, 2, 3, 4, 5, 6, 7]
+    >>> list(flats([(1,2,3), (4,5,6,7)], depth="abc"))
+    Traceback (most recent call last):
+      ...
+    TypeError: depth must be an integer or infinity
+    >>> list(flats([(1,2,3), (4,5,6,7)], depth=-1))
+    Traceback (most recent call last):
+      ...
+    ValueError: depth must be a non-negative integer or infinity
     """
     if depth == 1: # Most common case is first for efficiency.
         for xs in xss:
@@ -80,12 +90,10 @@ def flats(xss, depth=1): # pylint: disable=R0912
                         yield x
                 else:
                     yield xs
-            elif not isinstance(depth, int) and depth == float('inf'):
-                raise TypeError('depth must be an integer or infinity')
             elif isinstance(depth, int) and depth < 0:
                 raise ValueError('depth must be a non-negative integer or infinity')
-            else:
-                raise ValueError('depth value is invalid')
+            elif depth != float('inf') and not isinstance(depth, int):
+                raise TypeError('depth must be an integer or infinity')
 
 if __name__ == "__main__":
-    doctest.testmod()
+    doctest.testmod() # pragma: no cover

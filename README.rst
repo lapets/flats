@@ -27,7 +27,7 @@ A usage example is provided  below::
 
 Testing and Conventions
 -----------------------
-All unit tests are executed when using `nose <https://nose.readthedocs.io/>`_ (see ``setup.cfg`` for configution details)::
+All unit tests are executed and their coverage is measured when using `nose <https://nose.readthedocs.io/>`_ (see ``setup.cfg`` for configution details)::
 
     nosetests
 
