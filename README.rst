@@ -4,7 +4,7 @@ flats
 
 Python library for common functionalities related to flattening nested instances of container types.
 
-|pypi| |travis|
+|pypi| |travis| |coveralls|
 
 .. |pypi| image:: https://badge.fury.io/py/flats.svg
    :target: https://badge.fury.io/py/flats
@@ -12,6 +12,9 @@ Python library for common functionalities related to flattening nested instances
 
 .. |travis| image:: https://travis-ci.com/lapets/flats.svg?branch=master
     :target: https://travis-ci.com/lapets/flats
+
+.. |coveralls| image:: https://coveralls.io/repos/github/lapets/flats/badge.svg?branch=master
+   :target: https://coveralls.io/github/lapets/flats?branch=master
 
 Package Installation and Usage
 ------------------------------
