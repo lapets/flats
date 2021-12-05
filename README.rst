@@ -35,7 +35,7 @@ The library can be imported in the usual ways::
 
 Examples
 ^^^^^^^^
-This library provides a function that can flatten any instance of a container type that is the root of a tree of nested instances of container types, returning as an iterable the sequence of all objects or values (that are not of a container type) encountered during an in-order traversal. Any instance of the ``Iterable`` `class <https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable>`_ or of the``GeneratorType`` `type <https://docs.python.org/3/library/types.html#types.GeneratorType>`_ is considered to be an instance of a container type by this library::
+This library provides a function that can flatten any instance of a container type that is the root of a tree of nested instances of container types, returning as an iterable the sequence of all objects or values (that are not of a container type) encountered during an in-order traversal. Any instance of the ``Iterable`` `class <https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable>`_ or of the ``GeneratorType`` `type <https://docs.python.org/3/library/types.html#types.GeneratorType>`_ is considered to be an instance of a container type by this library::
 
     >>> from flats import flats
     >>> list(flats([[1, 2, 3], [4, 5, 6, 7]]))
