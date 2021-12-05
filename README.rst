@@ -2,7 +2,7 @@
 flats
 =====
 
-Python library for common functionalities related to flattening nested instances of container types.
+Minimal library that enables flattening of nested instances of container types.
 
 |pypi| |travis| |coveralls|
 
@@ -27,15 +27,35 @@ The library can be imported in the usual ways::
     import flats
     from flats import flats
 
-A usage example is provided  below::
+Examples
+^^^^^^^^
+This library provides a function that can flatten any instance of a container type that is the root of a tree of nested instances of container types, returning as an iterable the sequence of all objects or values (that are not of a container type) encountered during an in-order traversal. Any instance of the ``Iterable`` `class <https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable>`_ or of the``GeneratorType`` `type <https://docs.python.org/3/library/types.html#types.GeneratorType>`_ is considered to be an instance of a container type by this library::
 
     >>> from flats import flats
-    >>> list(flats([[1, [2, 3]], [4, 5, 6, 7]]))
+    >>> list(flats([[1, 2, 3], [4, 5, 6, 7]]))
+    [1, 2, 3, 4, 5, 6, 7]
+
+The nested instances need not be of the same type.
+
+    >>> tuple(flats([{1}, {2}, {3}, frozenset({4}), iter([5, 6, 7])]))
+    (1, 2, 3, 4, 5, 6, 7)
+    >>> list(flats(['abc', 'xyz']))
+    ['a', 'b', 'c', 'x', 'y', 'z']
+    >>> list(flats([range(3), range(3)]))
+    [0, 1, 2, 0, 1, 2]
+
+It is also possible to limit the depth to which nested instances of a container type are recursively traversed.
+
+    >>> list(flats([[[1, 2], 3], [4, 5, 6, 7]], depth=1))
+    [[1, 2], 3, 4, 5, 6, 7]
+    >>> list(flats([[[1, 2], 3], [4, 5, 6, 7]], depth=2))
+    [1, 2, 3, 4, 5, 6, 7]
+    >>> list(flats([[[1, [2]], 3], [4, [[[5]]], 6, 7]], depth=float('inf')))
     [1, 2, 3, 4, 5, 6, 7]
 
 Testing and Conventions
 -----------------------
-All unit tests are executed and their coverage is measured when using `nose <https://nose.readthedocs.io/>`_ (see ``setup.cfg`` for configution details)::
+All unit tests are executed and their coverage is measured when using `nose <https://nose.readthedocs.io/>`_ (see ``setup.cfg`` for configuration details)::
 
     nosetests
 
