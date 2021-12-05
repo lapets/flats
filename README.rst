@@ -4,7 +4,7 @@ flats
 
 Minimal library that enables flattening of nested instances of container types.
 
-|pypi| |readthedocs| |travis| |coveralls|
+|pypi| |readthedocs| |actions| |coveralls|
 
 .. |pypi| image:: https://badge.fury.io/py/flats.svg
    :target: https://badge.fury.io/py/flats
@@ -14,9 +14,9 @@ Minimal library that enables flattening of nested instances of container types.
    :target: https://flats.readthedocs.io/en/latest/?badge=latest
    :alt: Read the Docs documentation status.
 
-.. |travis| image:: https://travis-ci.com/lapets/flats.svg?branch=master
-   :target: https://travis-ci.com/lapets/flats
-   :alt: Travis CI build status.
+.. |actions| image:: https://github.com/lapets/flats/workflows/lint-test-cover-docs/badge.svg
+   :target: https://github.com/lapets/flats/actions/workflows/lint-test-cover-docs.yml
+   :alt: GitHub Actions status.
 
 .. |coveralls| image:: https://coveralls.io/repos/github/lapets/flats/badge.svg?branch=master
    :target: https://coveralls.io/github/lapets/flats?branch=master
