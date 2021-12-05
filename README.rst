@@ -15,14 +15,16 @@ Minimal library that enables flattening of nested instances of container types.
    :alt: Read the Docs documentation status.
 
 .. |travis| image:: https://travis-ci.com/lapets/flats.svg?branch=master
-    :target: https://travis-ci.com/lapets/flats
+   :target: https://travis-ci.com/lapets/flats
+   :alt: Travis CI build status.
 
 .. |coveralls| image:: https://coveralls.io/repos/github/lapets/flats/badge.svg?branch=master
    :target: https://coveralls.io/github/lapets/flats?branch=master
+   :alt: Coveralls test coverage summary.
 
 Package Installation and Usage
 ------------------------------
-The package is available on PyPI::
+The package is available on `PyPI <https://pypi.org/project/flats/>`_::
 
     python -m pip install flats
 
@@ -71,7 +73,8 @@ Testing and Conventions
 -----------------------
 All unit tests are executed and their coverage is measured when using `nose <https://nose.readthedocs.io/>`_ (see ``setup.cfg`` for configuration details)::
 
-    nosetests
+    python -m pip install nose coverage
+    nosetests --cover-erase
 
 Alternatively, all unit tests are included in the module itself and can be executed using `doctest <https://docs.python.org/3/library/doctest.html>`_::
 
@@ -79,11 +82,12 @@ Alternatively, all unit tests are included in the module itself and can be execu
 
 Style conventions are enforced using `Pylint <https://www.pylint.org/>`_::
 
+    python -m pip install pylint
     pylint flats
 
 Contributions
 -------------
-In order to contribute to the source code, open an issue or submit a pull request on the GitHub page for this library.
+In order to contribute to the source code, open an issue or submit a pull request on the `GitHub page <https://github.com/lapets/flats>`_ for this library.
 
 Versioning
 ----------
