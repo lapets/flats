@@ -4,11 +4,15 @@ flats
 
 Minimal library that enables flattening of nested instances of container types.
 
-|pypi| |travis| |coveralls|
+|pypi| |readthedocs| |travis| |coveralls|
 
 .. |pypi| image:: https://badge.fury.io/py/flats.svg
    :target: https://badge.fury.io/py/flats
    :alt: PyPI version and link.
+
+.. |readthedocs| image:: https://readthedocs.org/projects/flats/badge/?version=latest
+   :target: https://flats.readthedocs.io/en/latest/?badge=latest
+   :alt: Read the Docs documentation status.
 
 .. |travis| image:: https://travis-ci.com/lapets/flats.svg?branch=master
     :target: https://travis-ci.com/lapets/flats
