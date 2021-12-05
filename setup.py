@@ -5,7 +5,7 @@ with open("README.rst", "r") as fh:
 
 # The lines below can be parsed by `docs/conf.py`.
 name = "flats"
-version = "0.2.1"
+version = "0.2.2"
 
 setup(
     name=name,
@@ -16,8 +16,8 @@ setup(
     url="https://github.com/lapets/flats",
     author="Andrei Lapets",
     author_email="a@lapets.io",
-    description="Python library for common functionalities related "+\
-                "to flattening nested instances of container types.",
+    description="Minimal library that enables flattening of nested "+\
+                "instances of container types.",
     long_description=long_description,
     long_description_content_type="text/x-rst",
     test_suite="nose.collector",
