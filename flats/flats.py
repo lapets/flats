@@ -27,13 +27,15 @@ def flats(xss, depth: Optional[int] = 1): # pylint: disable=R0912
     tree of nested instances of container types, returning as an
     iterable the sequence of all objects or values (that are not
     of a container type) encountered during an in-order traversal.
+
+    >>> list(flats([[1, 2, 3], [4, 5, 6, 7]]))
+    [1, 2, 3, 4, 5, 6, 7]
+
     Any instance of ``Iterable`` or ``GeneratorType`` (including
     instances of the built-in types ``tuple``, ``list``, ``set``,
     ``frozenset``, ``range``, ``bytes``, and ``bytearray``) is
     considered an instance of a container type.
 
-    >>> list(flats([[1, 2, 3], [4, 5, 6, 7]]))
-    [1, 2, 3, 4, 5, 6, 7]
     >>> list(flats(frozenset({frozenset({1, 2, 3}), frozenset({4, 5, 6, 7})})))
     [1, 2, 3, 4, 5, 6, 7]
     >>> list(flats(((1, 2, 3), (4, 5, 6, 7))))
@@ -58,7 +60,7 @@ def flats(xss, depth: Optional[int] = 1): # pylint: disable=R0912
     depth at which nested instances of a container type are not
     recursively traversed. For example, setting ``depth`` to
     ``1`` is sufficient to flatten any list of lists into a list.
-    Thus, **this is the default value** for ``depth``.
+    Thus, ``1`` **is the default value** for ``depth``.
 
     >>> list(flats([[[1, 2], 3], [4, 5, 6, 7]], depth=1))
     [[1, 2], 3, 4, 5, 6, 7]
