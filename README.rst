@@ -41,7 +41,7 @@ This library provides a function that can flatten any instance of a container ty
     >>> list(flats([[1, 2, 3], [4, 5, 6, 7]]))
     [1, 2, 3, 4, 5, 6, 7]
 
-The nested instances need not be of the same type.
+The nested instances need not be of the same type::
 
     >>> tuple(flats([{1}, {2}, {3}, frozenset({4}), iter([5, 6, 7])]))
     (1, 2, 3, 4, 5, 6, 7)
@@ -50,7 +50,7 @@ The nested instances need not be of the same type.
     >>> list(flats([range(3), range(3)]))
     [0, 1, 2, 0, 1, 2]
 
-It is also possible to limit the depth to which nested instances of a container type are recursively traversed.
+It is also possible to limit the depth to which nested instances of a container type are recursively traversed::
 
     >>> list(flats([[[1, 2], 3], [4, 5, 6, 7]], depth=1))
     [[1, 2], 3, 4, 5, 6, 7]
