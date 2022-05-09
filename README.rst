@@ -18,8 +18,8 @@ Minimal library that enables flattening of nested instances of container types.
    :target: https://github.com/lapets/flats/actions/workflows/lint-test-cover-docs.yml
    :alt: GitHub Actions status.
 
-.. |coveralls| image:: https://coveralls.io/repos/github/lapets/flats/badge.svg?branch=master
-   :target: https://coveralls.io/github/lapets/flats?branch=master
+.. |coveralls| image:: https://coveralls.io/repos/github/lapets/flats/badge.svg?branch=main
+   :target: https://coveralls.io/github/lapets/flats?branch=main
    :alt: Coveralls test coverage summary.
 
 Package Installation and Usage
