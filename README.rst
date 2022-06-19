@@ -35,7 +35,14 @@ The library can be imported in the usual ways::
 
 Examples
 ^^^^^^^^
-This library provides a function that can flatten any instance of a container type that is the root of a tree of nested instances of container types, returning as an iterable the sequence of all objects or values (that are not of a container type) encountered during an in-order traversal. Any instance of the ``Iterable`` `class <https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable>`__ or of the ``GeneratorType`` `type <https://docs.python.org/3/library/types.html#types.GeneratorType>`__ is considered to be an instance of a container type by this library::
+
+.. |Iterable| replace:: ``Iterable``
+.. _Iterable: https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable
+
+.. |GeneratorType| replace:: ``GeneratorType``
+.. _GeneratorType: https://docs.python.org/3/library/types.html#types.GeneratorType
+
+This library provides a function that can flatten any instance of a container type that is the root of a tree of nested instances of container types, returning as an iterable the sequence of all objects or values (that are not of a container type) encountered during an in-order traversal. Any instance of the |Iterable|_ class or of the |GeneratorType|_ is considered to be an instance of a container type by this library::
 
     >>> from flats import flats
     >>> list(flats([[1, 2, 3], [4, 5, 6, 7]]))
@@ -50,7 +57,7 @@ The nested instances need not be of the same type::
     >>> list(flats([range(3), range(3)]))
     [0, 1, 2, 0, 1, 2]
 
-It is also possible to limit the depth to which nested instances of a container type are recursively traversed::
+It is also possible to limit the depth to which nested instances of a container type are recursively traversed during the flattening process (leaving unmodified the nesting of any instances that are found at a greater depth)::
 
     >>> list(flats([[[1, 2], 3], [4, 5, 6, 7]], depth=1))
     [[1, 2], 3, 4, 5, 6, 7]

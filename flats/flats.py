@@ -3,12 +3,16 @@ Minimal library that enables flattening of nested instances of
 container types.
 """
 from __future__ import annotations
-from typing import Optional
+from typing import Union, Optional, Sequence
 from types import GeneratorType
 from collections.abc import Iterable
 import doctest
 
-def _is_container(instance):
+def _is_container(instance: Union[Iterable, Sequence]) -> bool:
+    """
+    Return a boolean value indicating whether the supplied object is considered
+    an instance of a container type (according to this library).
+    """
     if isinstance(instance, (
             tuple, list, set, frozenset,
             Iterable, GeneratorType
@@ -21,20 +25,20 @@ def _is_container(instance):
     except: # pylint: disable=W0702
         return False
 
-def flats(xss, depth: Optional[int] = 1): # pylint: disable=R0912
+def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable: # pylint: disable=R0912
     """
-    Flatten an instance of a container type that is the root of a
-    tree of nested instances of container types, returning as an
-    iterable the sequence of all objects or values (that are not
-    of a container type) encountered during an in-order traversal.
+    Flatten an instance of a container type that is the root of a tree of nested
+    instances of container types, returning as an :obj:`~collections.abc.Iterable`
+    the sequence of all objects or values (that are not of a container type)
+    encountered during an in-order traversal.
 
     >>> list(flats([[1, 2, 3], [4, 5, 6, 7]]))
     [1, 2, 3, 4, 5, 6, 7]
 
-    Any instance of ``Iterable`` or ``GeneratorType`` (including
-    instances of the built-in types ``tuple``, ``list``, ``set``,
-    ``frozenset``, ``range``, ``bytes``, and ``bytearray``) is
-    considered an instance of a container type.
+    Any instance of :obj:`~collections.abc.Iterable` or :obj:`~types.GeneratorType`
+    (including instances of the built-in types :obj:`tuple`, :obj:`list`, :obj:`set`,
+    :obj:`frozenset`, :obj:`range`, :obj:`bytes`, and :obj:`bytearray`) is considered
+    an instance of a container type.
 
     >>> list(flats(frozenset({frozenset({1, 2, 3}), frozenset({4, 5, 6, 7})})))
     [1, 2, 3, 4, 5, 6, 7]
@@ -56,11 +60,10 @@ def flats(xss, depth: Optional[int] = 1): # pylint: disable=R0912
     >>> list(flats([bytearray([0, 1, 2]), bytearray([3, 4, 5])]))
     [0, 1, 2, 3, 4, 5]
 
-    The optional ``depth`` argument can be used to limit the
-    depth at which nested instances of a container type are not
-    recursively traversed. For example, setting ``depth`` to
-    ``1`` is sufficient to flatten any list of lists into a list.
-    Thus, ``1`` **is the default value** for ``depth``.
+    The optional ``depth`` argument can be used to limit the depth at which nested
+    instances of a container type are not recursively traversed. For example, setting
+    ``depth`` to ``1`` is sufficient to flatten any list of lists into a list. Thus,
+    ``1`` **is the default value** for ``depth``.
 
     >>> list(flats([[[1, 2], 3], [4, 5, 6, 7]], depth=1))
     [[1, 2], 3, 4, 5, 6, 7]
@@ -71,22 +74,22 @@ def flats(xss, depth: Optional[int] = 1): # pylint: disable=R0912
     >>> list(flats([(1, 2, 3), (4, 5, 6, 7)], depth=3))
     [1, 2, 3, 4, 5, 6, 7]
 
-    Setting ``depth`` to ``0`` returns unmodified the contents
-    of the supplied instance of a container type (though these
-    results are still returned as an iterable for consistency).
+    Setting ``depth`` to ``0`` returns unmodified the contents of the supplied instance
+    of a container type (though, for consistency, these results are still returned as
+    an iterable).
 
     >>> list(flats([[[1, 2], 3], [4, 5, 6, 7]], depth=0))
     [[[1, 2], 3], [4, 5, 6, 7]]
 
-    If ``depth`` is set to ``float('inf')``, recursive traversal
-    of instances of container types occurs to any depth (until
-    an instance of a non-container type is reached).
+    If ``depth`` is set to ``float('inf')``, recursive traversal of instances of
+    container types occurs to any depth (until an instance of a non-container type is
+    encountered).
 
     >>> list(flats([[[1, [2]], 3], [4, [[[5]]], 6, 7]], depth=float('inf')))
     [1, 2, 3, 4, 5, 6, 7]
 
-    If the value of the ``depth`` argument is not a non-negative
-    integer, an exception is raised.
+    If the value of the ``depth`` argument is not a non-negative integer, an exception
+    is raised.
 
     >>> list(flats([(1, 2, 3), (4, 5, 6, 7)], depth="abc"))
     Traceback (most recent call last):
