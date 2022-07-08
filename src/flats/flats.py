@@ -3,9 +3,9 @@ Minimal library that enables flattening of nested instances of
 container types.
 """
 from __future__ import annotations
-from typing import Union, Optional, Sequence
+from typing import Union, Optional, Sequence, Iterable
 from types import GeneratorType
-from collections.abc import Iterable
+import collections.abc
 import doctest
 
 def _is_container(instance: Union[Iterable, Sequence]) -> bool:
@@ -15,7 +15,7 @@ def _is_container(instance: Union[Iterable, Sequence]) -> bool:
     """
     if isinstance(instance, (
             tuple, list, set, frozenset,
-            Iterable, GeneratorType
+            collections.abc.Iterable, GeneratorType
         )):
         return True
 
@@ -31,6 +31,10 @@ def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable: # pylint: disabl
     instances of container types, returning as an :obj:`~collections.abc.Iterable`
     the sequence of all objects or values (that are not of a container type)
     encountered during an in-order traversal.
+
+    :param xss: Iterable (usually of container instances) to be flattened.
+    :param depth: Number of layers to flatten (*i.e.*, amount by which the depth of
+        the nested structure should be reduced).
 
     >>> list(flats([[1, 2, 3], [4, 5, 6, 7]]))
     [1, 2, 3, 4, 5, 6, 7]
