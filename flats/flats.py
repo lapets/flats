@@ -91,7 +91,7 @@ def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable: # pylint: disabl
     If the value of the ``depth`` argument is not a non-negative integer, an exception
     is raised.
 
-    >>> list(flats([(1, 2, 3), (4, 5, 6, 7)], depth="abc"))
+    >>> list(flats([(1, 2, 3), (4, 5, 6, 7)], depth='abc'))
     Traceback (most recent call last):
       ...
     TypeError: depth must be an integer or infinity
@@ -138,5 +138,5 @@ def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable: # pylint: disabl
             elif depth != float('inf') and not isinstance(depth, int):
                 raise TypeError('depth must be an integer or infinity')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     doctest.testmod() # pragma: no cover
