@@ -4,7 +4,6 @@ container types.
 """
 from __future__ import annotations
 from typing import Union, Optional, Sequence, Iterable
-from types import GeneratorType
 import collections.abc
 import doctest
 
@@ -15,7 +14,7 @@ def _is_container(instance: Union[Iterable, Sequence]) -> bool:
     """
     if isinstance(instance, (
             tuple, list, set, frozenset,
-            collections.abc.Iterable, GeneratorType
+            collections.abc.Iterable, collections.abc.Generator
         )):
         return True
 

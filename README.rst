@@ -39,10 +39,10 @@ Examples
 .. |Iterable| replace:: ``Iterable``
 .. _Iterable: https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable
 
-.. |GeneratorType| replace:: ``GeneratorType``
-.. _GeneratorType: https://docs.python.org/3/library/types.html#types.GeneratorType
+.. |Generator| replace:: ``Generator``
+.. _Generator: https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator
 
-This library provides a function that can flatten any instance of a container type that is the root of a tree of nested instances of container types, returning as an iterable the sequence of all objects or values (that are not of a container type) encountered during an in-order traversal. Any instance of the |Iterable|_ class or of the |GeneratorType|_ is considered to be an instance of a container type by this library::
+This library provides a function that can flatten any instance of a container type that is the root of a tree of nested instances of container types, returning as an iterable the sequence of all objects or values (that are not of a container type) encountered during an in-order traversal. Any instance of the |Iterable|_ class or the |Generator|_ class is considered to be an instance of a container type by this library::
 
     >>> from flats import flats
     >>> list(flats([[1, 2, 3], [4, 5, 6, 7]]))
