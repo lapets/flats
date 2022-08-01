@@ -22,10 +22,10 @@ def _is_container(instance: Union[Iterable, Sequence]) -> bool:
     try:
         _ = instance[0]
         return True
-    except: # pylint: disable=W0702
+    except: # pylint: disable=bare-except
         return False
 
-def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable: # pylint: disable=R0912
+def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable:
     """
     Flatten an instance of a container type that is the root of a tree of nested
     instances of container types, returning as an :obj:`~collections.abc.Iterable`
@@ -113,6 +113,7 @@ def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable: # pylint: disabl
     >>> wrap(list(flats(wrap([wrap([1, 2]), wrap([3, 4])]))))
     wrap([1, 2, 3, 4])
     """
+    # pylint: disable=too-many-branches
     if depth == 1: # Most common case is first for efficiency.
         for xs in xss:
             if _is_container(xs):
