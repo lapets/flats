@@ -127,7 +127,7 @@ def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable:
         for xs in xss:
             if isinstance(depth, int) and depth >= 1:
                 if _is_container(xs):
-                    for x in flats(xs, depth=(depth - 1)):
+                    for x in flats(xs, depth=depth - 1):
                         yield x
                 else:
                     yield xs
