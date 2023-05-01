@@ -24,11 +24,15 @@ Minimal library that enables flattening of nested instances of container types.
 
 Installation and Usage
 ----------------------
-This library is available as a `package on PyPI <https://pypi.org/project/flats>`__::
+This library is available as a `package on PyPI <https://pypi.org/project/flats>`__:
+
+.. code-block:: bash
 
     python -m pip install flats
 
-The library can be imported in the usual ways::
+The library can be imported in the usual ways:
+
+.. code-block:: python
 
     import flats
     from flats import flats
@@ -42,13 +46,17 @@ Examples
 .. |Generator| replace:: ``Generator``
 .. _Generator: https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator
 
-This library provides a function that can flatten any instance of a container type that is the root of a tree of nested instances of container types, returning as an iterable the sequence of all objects or values (that are not of a container type) encountered during an in-order traversal. Any instance of the |Iterable|_ class or the |Generator|_ class is considered to be an instance of a container type by this library::
+This library provides a function that can flatten any instance of a container type that is the root of a tree of nested instances of container types, returning as an iterable the sequence of all objects or values (that are not of a container type) encountered during an in-order traversal. Any instance of the |Iterable|_ class or the |Generator|_ class is considered to be an instance of a container type by this library:
+
+.. code-block:: python
 
     >>> from flats import flats
     >>> list(flats([[1, 2, 3], [4, 5, 6, 7]]))
     [1, 2, 3, 4, 5, 6, 7]
 
-The nested instances need not be of the same type::
+The nested instances need not be of the same type:
+
+.. code-block:: python
 
     >>> tuple(flats([{1}, {2}, {3}, frozenset({4}), iter([5, 6, 7])]))
     (1, 2, 3, 4, 5, 6, 7)
@@ -57,7 +65,9 @@ The nested instances need not be of the same type::
     >>> list(flats([range(3), range(3)]))
     [0, 1, 2, 0, 1, 2]
 
-It is also possible to limit the depth to which nested instances of a container type are recursively traversed during the flattening process (leaving unmodified the nesting of any instances that are found at a greater depth)::
+It is also possible to limit the depth to which nested instances of a container type are recursively traversed during the flattening process (leaving unmodified the nesting of any instances that are found at a greater depth):
+
+.. code-block:: python
 
     >>> list(flats([[[1, 2], 3], [4, 5, 6, 7]], depth=1))
     [[1, 2], 3, 4, 5, 6, 7]
@@ -68,13 +78,17 @@ It is also possible to limit the depth to which nested instances of a container 
 
 Development
 -----------
-All installation and development dependencies are fully specified in ``pyproject.toml``. The ``project.optional-dependencies`` object is used to `specify optional requirements <https://peps.python.org/pep-0621>`__ for various development tasks. This makes it possible to specify additional options (such as ``docs``, ``lint``, and so on) when performing installation using `pip <https://pypi.org/project/pip>`__::
+All installation and development dependencies are fully specified in ``pyproject.toml``. The ``project.optional-dependencies`` object is used to `specify optional requirements <https://peps.python.org/pep-0621>`__ for various development tasks. This makes it possible to specify additional options (such as ``docs``, ``lint``, and so on) when performing installation using `pip <https://pypi.org/project/pip>`__:
+
+.. code-block:: bash
 
     python -m pip install .[docs,lint]
 
 Documentation
 ^^^^^^^^^^^^^
-The documentation can be generated automatically from the source files using `Sphinx <https://www.sphinx-doc.org>`__::
+The documentation can be generated automatically from the source files using `Sphinx <https://www.sphinx-doc.org>`__:
+
+.. code-block:: bash
 
     python -m pip install .[docs]
     cd docs
@@ -82,16 +96,22 @@ The documentation can be generated automatically from the source files using `Sp
 
 Testing and Conventions
 ^^^^^^^^^^^^^^^^^^^^^^^
-All unit tests are executed and their coverage is measured when using `pytest <https://docs.pytest.org>`__ (see the ``pyproject.toml`` file for configuration details)::
+All unit tests are executed and their coverage is measured when using `pytest <https://docs.pytest.org>`__ (see the ``pyproject.toml`` file for configuration details):
+
+.. code-block:: bash
 
     python -m pip install .[test]
     python -m pytest
 
-Alternatively, all unit tests are included in the module itself and can be executed using `doctest <https://docs.python.org/3/library/doctest.html>`__::
+Alternatively, all unit tests are included in the module itself and can be executed using `doctest <https://docs.python.org/3/library/doctest.html>`__:
+
+.. code-block:: bash
 
     python src/flats/flats.py -v
 
-Style conventions are enforced using `Pylint <https://pylint.pycqa.org>`__::
+Style conventions are enforced using `Pylint <https://pylint.readthedocs.io>`__:
+
+.. code-block:: bash
 
     python -m pip install .[lint]
     python -m pylint src/flats
@@ -106,20 +126,28 @@ Beginning with version 0.1.0, the version number format for this library and the
 
 Publishing
 ^^^^^^^^^^
-This library can be published as a `package on PyPI <https://pypi.org/project/flats>`__ by a package maintainer. First, install the dependencies required for packaging and publishing::
+This library can be published as a `package on PyPI <https://pypi.org/project/flats>`__ by a package maintainer. First, install the dependencies required for packaging and publishing:
+
+.. code-block:: bash
 
     python -m pip install .[publish]
 
-Ensure that the correct version number appears in ``pyproject.toml``, and that any links in this README document to the Read the Docs documentation of this package (or its dependencies) have appropriate version numbers. Also ensure that the Read the Docs project for this library has an `automation rule <https://docs.readthedocs.io/en/stable/automation-rules.html>`__ that activates and sets as the default all tagged versions. Create and push a tag for this version (replacing ``?.?.?`` with the version number)::
+Ensure that the correct version number appears in ``pyproject.toml``, and that any links in this README document to the Read the Docs documentation of this package (or its dependencies) have appropriate version numbers. Also ensure that the Read the Docs project for this library has an `automation rule <https://docs.readthedocs.io/en/stable/automation-rules.html>`__ that activates and sets as the default all tagged versions. Create and push a tag for this version (replacing ``?.?.?`` with the version number):
+
+.. code-block:: bash
 
     git tag ?.?.?
     git push origin ?.?.?
 
-Remove any old build/distribution files. Then, package the source into a distribution archive::
+Remove any old build/distribution files. Then, package the source into a distribution archive:
+
+.. code-block:: bash
 
     rm -rf build dist src/*.egg-info
     python -m build --sdist --wheel .
 
-Finally, upload the package distribution archive to `PyPI <https://pypi.org>`__::
+Finally, upload the package distribution archive to `PyPI <https://pypi.org>`__:
+
+.. code-block:: bash
 
     python -m twine upload dist/*
