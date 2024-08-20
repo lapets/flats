@@ -21,6 +21,7 @@ def _is_container(instance: Union[Iterable, Sequence]) -> bool:
     try:
         _ = instance[0]
         return True
+
     except: # pylint: disable=bare-except
         return False
 
@@ -116,29 +117,32 @@ def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable:
     if depth == 1: # Most common case is first for efficiency.
         for xs in xss:
             if _is_container(xs):
-                for x in xs:
-                    yield x
+                yield from xs
             else:
                 yield xs
+
     elif depth == 0: # For consistency, base case is also a generator.
-        for xs in xss:
-            yield xs
+        yield from xss
+
     else: # General recursive case.
         for xs in xss:
             if isinstance(depth, int) and depth >= 1:
                 if _is_container(xs):
-                    for x in flats(xs, depth=depth - 1):
-                        yield x
+                    yield from flats(xs, depth=depth - 1)
                 else:
                     yield xs
+
             elif depth == float('inf'):
                 if _is_container(xs):
-                    for x in flats(xs, depth=float('inf')):
-                        yield x
+                    yield from flats(xs, depth=float('inf'))
                 else:
                     yield xs
+
             elif isinstance(depth, int) and depth < 0:
-                raise ValueError('depth must be a non-negative integer or infinity')
+                raise ValueError(
+                    'depth must be a non-negative integer or infinity'
+                )
+
             elif depth != float('inf') and not isinstance(depth, int):
                 raise TypeError('depth must be an integer or infinity')
 
