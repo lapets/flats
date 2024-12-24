@@ -2,7 +2,7 @@
 flats
 =====
 
-Minimal library that enables flattening of nested instances of container types.
+Minimal library that enables flattening of nested instances of iterable containers.
 
 |pypi| |readthedocs| |actions| |coveralls|
 

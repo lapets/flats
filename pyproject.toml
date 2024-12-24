@@ -3,7 +3,7 @@ name = "flats"
 version = "1.0.0"
 description = """\
     Minimal library that enables flattening \
-    of nested instances of container types.\
+    of nested instances of iterable containers.\
     """
 license = {text = "MIT"}
 authors = [

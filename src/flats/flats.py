@@ -1,6 +1,6 @@
 """
 Minimal library that enables flattening of nested instances of
-container types.
+iterable containers.
 """
 from __future__ import annotations
 from typing import Union, Optional, Sequence, Iterable
