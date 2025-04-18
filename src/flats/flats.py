@@ -25,14 +25,14 @@ def _is_container(instance: Union[Iterable, Sequence]) -> bool:
     except: # pylint: disable=bare-except
         return False
 
-def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable:
+def flats(iterables: Iterable, depth: Optional[int] = 1) -> Iterable:
     """
     Flatten an instance of a container type that is the root of a tree of nested
     instances of container types, returning as an :obj:`~collections.abc.Iterable`
     the sequence of all objects or values (that are not of a container type)
     encountered during an in-order traversal.
 
-    :param xss: Iterable (usually of container instances) to be flattened.
+    :param iterables: Iterable (usually of container instances) to be flattened.
     :param depth: Number of layers to flatten (*i.e.*, amount by which the depth of
         the nested structure should be reduced).
 
@@ -107,36 +107,36 @@ def flats(xss: Iterable, depth: Optional[int] = 1) -> Iterable:
     User-defined container types are also supported.
 
     >>> class wrap():
-    ...     def __init__(self, xs): self.xs = xs
-    ...     def __getitem__(self, key): return self.xs[key]
-    ...     def __repr__(self): return 'wrap(' + str(self.xs) + ')'
+    ...     def __init__(self, iterable): self.iterable = iterable
+    ...     def __getitem__(self, key): return self.iterable[key]
+    ...     def __repr__(self): return 'wrap(' + str(self.iterable) + ')'
     >>> wrap(list(flats(wrap([wrap([1, 2]), wrap([3, 4])]))))
     wrap([1, 2, 3, 4])
     """
     # pylint: disable=too-many-branches
     if depth == 1: # Most common case is first for efficiency.
-        for xs in xss:
-            if _is_container(xs):
-                yield from xs
+        for iterable in iterables:
+            if _is_container(iterable):
+                yield from iterable
             else:
-                yield xs
+                yield iterable
 
     elif depth == 0: # For consistency, base case is also a generator.
-        yield from xss
+        yield from iterables
 
     else: # General recursive case.
-        for xs in xss:
+        for iterable in iterables:
             if isinstance(depth, int) and depth >= 1:
-                if _is_container(xs):
-                    yield from flats(xs, depth=depth - 1)
+                if _is_container(iterable):
+                    yield from flats(iterable, depth=depth - 1)
                 else:
-                    yield xs
+                    yield iterable
 
             elif depth == float('inf'):
-                if _is_container(xs):
-                    yield from flats(xs, depth=float('inf'))
+                if _is_container(iterable):
+                    yield from flats(iterable, depth=float('inf'))
                 else:
-                    yield xs
+                    yield iterable
 
             elif isinstance(depth, int) and depth < 0:
                 raise ValueError(

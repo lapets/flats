@@ -1,6 +1,6 @@
 [project]
 name = "flats"
-version = "1.0.0"
+version = "2.0.0"
 description = """\
     Minimal library that enables flattening \
     of nested instances of iterable containers.\
